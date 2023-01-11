@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Model;
-using WebApi.ViewModel;
+using WebApi.Application.ViewModel;
+using WebApi.Domain.Model;
 
 namespace WebApi.Controllers
 {
@@ -51,8 +51,6 @@ namespace WebApi.Controllers
         public IActionResult Get(int pageNumber, int pageQuantity)
         {
             _logger.Log(LogLevel.Error, "Teve um Erro");
-
-            throw new Exception("Erro de Teste");
 
             var employess = _employeeRepository.Get(pageNumber, pageQuantity);
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApi.Services;
+using WebApi.Application.Services;
 
 namespace WebApi.Controllers
 {
@@ -12,7 +12,7 @@ namespace WebApi.Controllers
         {
             if (username == "filipe" && password == "123456")
             {
-                var token = TokenService.GenerateToken(new Model.Employee());
+                var token = TokenService.GenerateToken(new Domain.Model.Employee());
                 return Ok(token);
             }
 

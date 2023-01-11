@@ -2,9 +2,9 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using WebApi.Model;
+using WebApi.Domain.Model;
 
-namespace WebApi.Services
+namespace WebApi.Application.Services
 {
     public class TokenService
     {
@@ -13,7 +13,7 @@ namespace WebApi.Services
             var key = Encoding.ASCII.GetBytes(Key.Secret);
             var tokenConfig = new SecurityTokenDescriptor
             {
-                Subject = new System.Security.Claims.ClaimsIdentity(new Claim[]
+                Subject = new ClaimsIdentity(new Claim[]
                 {
                       new Claim("employeeId", employee.id.ToString()),
                 }),
