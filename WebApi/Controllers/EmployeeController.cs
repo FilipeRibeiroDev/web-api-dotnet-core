@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Application.ViewModel;
+using WebApi.Domain.DTOs;
 using WebApi.Domain.Model;
 
 namespace WebApi.Controllers
@@ -11,11 +13,13 @@ namespace WebApi.Controllers
     {
         private readonly IEmployeeRepository _employeeRepository;
         private readonly ILogger<EmployeeController> _logger;
+        private readonly IMapper _mapper;
 
-        public EmployeeController(IEmployeeRepository employeeRepository, ILogger<EmployeeController> logger)
+        public EmployeeController(IEmployeeRepository employeeRepository, ILogger<EmployeeController> logger, IMapper mapper)
         {
             _employeeRepository = employeeRepository ?? throw new ArgumentNullException(nameof(employeeRepository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [Authorize]
@@ -57,6 +61,18 @@ namespace WebApi.Controllers
             _logger.LogInformation("Teste");
 
             return Ok(employess);
+        }
+
+
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult Search(int id)
+        {
+            var employess = _employeeRepository.Get(id);
+
+            var employeesDTOS = _mapper.Map<EmployeeDTO>(employess);
+
+            return Ok(employeesDTOS);
         }
     }
 }
