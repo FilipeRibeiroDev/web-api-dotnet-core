@@ -5,10 +5,11 @@ using WebApi.Application.ViewModel;
 using WebApi.Domain.DTOs;
 using WebApi.Domain.Model.EmployeeAggregate;
 
-namespace WebApi.Controllers
+namespace WebApi.Controllers.v2
 {
     [ApiController]
-    [Route("api/v1/employee")]
+    [Route("api/v{version:apiVersion}/employee")]
+    [ApiVersion("2.0")]
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeRepository _employeeRepository;
@@ -62,7 +63,6 @@ namespace WebApi.Controllers
 
             return Ok(employess);
         }
-
 
         [HttpGet]
         [Route("{id}")]
